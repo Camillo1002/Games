@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 
@@ -6,49 +7,63 @@ public class Main {
     public static void main(String[] args) {
         Game game = new Game();
         Scanner scanner = new Scanner(System.in);
-        while (true){
-            System.out.println("============================.");;
+        while (true) {
+            System.out.println("============================.");
+            ;
             System.out.println("Select an optionę:");
             System.out.println("1.New game");
             System.out.println("2.View movie listw");
             System.out.println("3.Exit");
-            System.out.println("============================.");;
+            System.out.println("============================.");
+            ;
             String playerChoice = scanner.nextLine();
-            System.out.println("============================.");;
+            System.out.println("============================.");
 
-            if("1".equals(playerChoice)) {
-                System.out.println("============================.");;
-                System.out.println("Game development.");
-                System.out.println("============================.");;
+            if ("1".equals(playerChoice)) {
+                System.out.println("============================.");
+                System.out.println("You have 10 chances.");
+                String guesseRandom = game.pickMovie();
+                System.out.println(guesseRandom);
+                String guesseHiden = game.hiddenMovieTitle(guesseRandom);
+                System.out.println("============================.");
+                System.out.println(guesseHiden);
+                System.out.println("============================.");
+                ;
             } else if ("2".equals(playerChoice)) {
                 game.displayMovies();
             } else if ("3".equals(playerChoice)) {
-                System.out.println("============================.");;
+                System.out.println("============================.");
+                ;
                 System.out.println("End of program.");
-                System.out.println("============================.");;
+                System.out.println("============================.");
+                ;
                 break;
-            }else {
-                System.out.println("============================.");;
+            } else {
+                System.out.println("============================.");
+                ;
                 System.out.println("Invalid option, please try again!");
-                System.out.println("============================.");;
+                System.out.println("============================.");
+                ;
             }
         }
     }
+
     public static class Game {
         private ArrayList<String> moviessList = new ArrayList<>();
 
         public Game() {
             populateMoviesLis();
         }
+
         public void displayMovies() {
             System.out.println("Movies list ");
-            for(String movie : moviessList){
+            for (String movie : moviessList) {
                 System.out.println(movie);
 
             }
         }
 
-        private void  populateMoviesLis() {
+        private void populateMoviesLis() {
             moviessList.add("The Shawshank Redemption");
             moviessList.add("The Godfather");
             moviessList.add("The Dark Knight");
@@ -75,6 +90,21 @@ public class Main {
             moviessList.add("Fargo");
             moviessList.add("No Country for Old Men");
         }
+
+        public String pickMovie() {
+            Random random = new Random();
+            return moviessList.get(random.nextInt(moviessList.size()));
+        }
+
+        public String hiddenMovieTitle(String movieGuess) {
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < movieGuess.length(); i++) {
+                sb.append("_");
+            }
+            return sb.toString();
+        }
     }
+
 
 }
